@@ -40,7 +40,8 @@ module.exports = function HarRecorder() {
                 entry.request.postData = {
                     text: event.request.postData,
                     size: event.request.postData.length,
-                    mimeType: event.request.headers["Content-Type"] || event.request.headers["content-type"]
+                    mimeType: event.responseHeaders.find(header => header.name === 'content-type' || header.name === 'Content-Type') === undefined ? 
+                        null : event.responseHeaders.find(header => header.name === 'content-type' || header.name === 'Content-Type').value
                 }
             }
 
